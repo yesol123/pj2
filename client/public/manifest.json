@@ -1,10 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "모바일 아이콘 밑으로 들어갈 어플명",
+  "name": "어플 풀 명칭", 
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
@@ -17,9 +17,11 @@
       "type": "image/png",
       "sizes": "512x512"
     }
+    
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
+
 }
