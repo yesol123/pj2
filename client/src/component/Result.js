@@ -6,7 +6,7 @@ const img = './horang.png'
 
 function Result() {
     const [allUsersData, setAllUsersData] = useState([]);
-    axios.get('http://localhost:3033')
+    axios.get(`${process.env.REACT_APP_SERVER}`)
         .then(res => {
             setAllUsersData(res.data);
         })
