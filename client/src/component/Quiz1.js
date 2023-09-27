@@ -20,13 +20,16 @@ function Quiz1() {
   //   console.log(res.data.channel.item[0].sense[0].definition) //정의
 
   useEffect(() => {
+    const key = 'key=4E4101E1F9C6B578FCE4D6CABE483676';
+
     // 랜덤 단어와 그 정의를 가져오는 함수 정의
     const fetchRandomWordAndDefinition = () => {
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
 
-      axios.get(`https://opendict.korean.go.kr/api/search?key=4E4101E1F9C6B578FCE4D6CABE483676&target_type=search&req_type=json&part=word&q=${randomWord}`)
+      axios
+        .get(`/api/search?${key}&target_type=search&req_type=json&part=word&q=${randomWord}`)
         .then((res) => {
-          const items = res.data;
+          const items = res.data.channel.item;
           console.log(items)
 
           // 랜덤 아이템과 의미 선택
@@ -83,7 +86,7 @@ function Quiz1() {
       } else {
         console.log('오답입니다.');
         // 오답 처리 로직 추가
-        axios.post('http://localhost:3030/insert',{ nickname, score })
+        axios.post('http://localhost:3033/insert',{ nickname, score })
         .then(res=>{
           navigate('/result');
         })
