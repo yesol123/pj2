@@ -18,17 +18,16 @@ const limitCacheSize = (name, size)=>{
 
 //인스톨 이벤트가 발생하면 캐시 오픈! 
 this.addEventListener('install', (event)=>{
-    console.log('install');
     event.waitUntil( // 여기 들어있는 애들이 다 된 후 activate 애들이 동작된다 
         caches.open(staticCacheName).then((cache)=>{ //version-1
-            console.log('Opend Cache')
+            
             return cache.addAll(urlsToCache); //cache version-1이라는 공간에 넣어주자~~~ 
         })
     )
 })
 
 this.addEventListener('fetch', event => {
-    console.log('fetch');
+    
     event.respondWith(
         caches.match(event.request).then(cacheRes=>{
             return cacheRes || fetch(event.request).then(fetchRes=>{ //인터넷이 됐을 경우
@@ -47,7 +46,7 @@ this.addEventListener('fetch', event => {
 })
 
 this.addEventListener('activate', event=>{  
-    console.log('activate');
+    
     event.waitUntil( // 이 작업이 끝나고 난 후 fetch이벤트가 발생하도록
         caches.keys().then(keys => {
             return Promise.all(keys

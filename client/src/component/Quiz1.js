@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import cho_hangul from './cho_hangul';
-import wordList from './wordlist'; 
+
 
 
 function Quiz1() {
@@ -19,16 +19,21 @@ function Quiz1() {
   //   console.log(res.data.channel.item[0].word) //단어
   //   console.log(res.data.channel.item[0].sense[0].definition) //정의
 
-  useEffect(() => {
-    const key = 'key=4E4101E1F9C6B578FCE4D6CABE483676';
+
 
     // 랜덤 단어와 그 정의를 가져오는 함수 정의
-    const fetchRandomWordAndDefinition = () => {
+
+    const key = 'key=4E4101E1F9C6B578FCE4D6CABE483676';
+    const quiz =  () => {
+      const wordList = [
+        '주선', '부정', '기차', '사과', '구두', '반장', '명사', '농부', '도덕', '해일', '당직', '냉각', '단독', '새', '가식', '가방', '꿈', '개인', '까치', '남극', '각성', '난초', '수동', '나비', '나무', '아이', '집사', '머리', '하마', '파도', '가난', '사자', '박수', '사이', '가문', '휴식', '저장', '사슴', '이발', '지연', '말', '루틴', '단장', '도로', '이변', '대수', '기린', '초성', '초선', '코로나', '포도', '퐁퐁', '차고', '치성', '기적', '노래', '노가리',
+        '대학', '민경', '도리', '도둑', '도전', '독종', '독해', '도적', '동심', '동자', '동행', '동전', '등록', '딱딱', '리터', '마음', '막대', '매실', '매일', '매화', '맹세', '망치', '명량', '명성', '명언', '명예', '명중', '모드', '뭉치', '무법', '무적', '무제', '문화', '물리', '물매', '바보', '박자', '바람', '방송', '방울', '발표', '발포', '방정', '배달', '방출', '방패', '방황', '방침', '배려', '연패', '법정', '병력', '벼락', '변경', '보호', '보석', '부록', '부채', '분개', '분파', '분홍', '비단', '비상', '비행', '비명', '인형', '비치', '비평', '사람', '사관', '사회', '삭제', '사탕', '산호', '살림', '상황', '살성', '산전', '살수', '상어', '상인', '상처', '상의', '생수', '상큼', '상품', '생기', '생동', '생선', '서론', '서버', '석화', '석현', '도예', '주영', '지영', '유진', '민지', '현지', '정아', '주연', '윤하', '정민', '오성', '호성', '선비', '선택', '선호', '설정', '성공', '세계', '성인', '세상', '소개', '소원', '소정', '소설', '속박', '수갑', '수분', '수달', '수면', '수박', '수색', '수영', '수정', '수지', '순차', '시인', '시합', '신문', '시선', '신사', ''
+      ];
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
 
       axios
-        .get(`/api/search?${key}&target_type=search&req_type=json&part=word&q=${randomWord}`)
-        .then((res) => {
+      .get(`http://localhost:3033/openapi?randomWord=${randomWord}`)
+      .then((res) => {
           const items = res.data.channel.item;
           console.log(items)
 
@@ -38,27 +43,27 @@ function Quiz1() {
           const senses = randomItem.sense;
           const randomSenseIndex = Math.floor(Math.random() * Math.min(senses.length, 2));
           const randomSense = senses[randomSenseIndex];
-
           // 상태에 정의와 정답 업데이트
           setDefinition(randomSense.definition);
           setCorrectAnswer(randomItem.word);
-          setUserAnswer(''); // 정답을 맞춘 후에 input 값을 비움
+          setUserAnswer('');
         })
         .catch((error) => {
           console.error('API 호출 중 오류 발생:', error);
         });
     };
+
+  useEffect(() => {
     // 초기에 랜덤 단어와 정의를 가져오는 함수 호출
-    fetchRandomWordAndDefinition();
+    quiz();
   }, [score]);
 
-
+  console.log('score',score)
 
   function generateSpanElements(word) {
     if (!word) {
       return null; // 단어가 없으면 아무것도 반환하지 않음
     }
-
     const spanElements = [];
     for (let i = 0; i < word.length; i++) {
       spanElements.push(<span key={i}>{word[i]}</span>);
@@ -82,7 +87,7 @@ function Quiz1() {
         // 정답 처리 로직 추가
         const newScore = score + 1; // 증가된 스코어 계산
         setScore(newScore); // 스코어 상태 업데이트
-        console.log(newScore); // 정답을 맞춘 경우 업데이트된 점수를 로그로 출력
+        // quiz();
       } else {
         console.log('오답입니다.');
         // 오답 처리 로직 추가
@@ -90,9 +95,6 @@ function Quiz1() {
         .then(res=>{
           navigate('/result');
         })
-        //서버 gameData.json으로 넘겨주는 작업 해주면 되는거? 
-        //result에서 결과값을 보여준다 
-        //다시 서버에 있는 업데이트된 데이터를 가져와서 result화면에 출력
 
       }
   };
