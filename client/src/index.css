@@ -13,4 +13,5 @@ body,input,button{
 body{
   width: 390px;
   margin: 0 auto;
+  background-color: aquamarine;
 }
