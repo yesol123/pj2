@@ -8,7 +8,7 @@ import Result from './component/Result';
 
 function App() {
   return (
-    <BrowserRouter basename='/pj2'>
+    <BrowserRouter basename='/pj2/'>
     <header className='header'>
       <div className='headerflex'>
         <h1><Link to='/'>👑우리말을 겨뤄보자👑</Link></h1>

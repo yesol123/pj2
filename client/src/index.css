@@ -8,5 +8,9 @@
 body,input,button{
   font-weight: 600;
   font-family: 'HakgyoansimWoojuR';
- 
+}
+
+body{
+  width: 390px;
+  margin: 0 auto;
 }
