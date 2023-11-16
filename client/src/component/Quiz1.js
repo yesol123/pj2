@@ -32,7 +32,7 @@ function Quiz1() {
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
 
       axios
-      .get(`http://localhost:3033/openapi?randomWord=${randomWord}`)
+      .get(`https://port-0-pj2server-1xxfe2blm48b9h5.sel5.cloudtype.app/openapi?randomWord=${randomWord}`)
       .then((res) => {
           const items = res.data.channel.item;
           console.log(items)
