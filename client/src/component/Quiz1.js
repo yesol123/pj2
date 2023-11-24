@@ -91,7 +91,7 @@ function Quiz1() {
       } else {
         console.log('오답입니다.');
         // 오답 처리 로직 추가
-        axios.post('http://localhost:3033/insert',{ nickname, score })
+        axios.post('https://port-0-pj2server-1xxfe2blm48b9h5.sel5.cloudtype.app/insert',{ nickname, score })
         .then(res=>{
           navigate('/result');
         })
@@ -114,7 +114,7 @@ function Quiz1() {
 
           <div className='score'>
             <p><span>{nickname}</span>님의 현재 점수</p>
-            <p>{score}:점</p>
+            <p>{score}점</p>
           </div>
 
           {/* 초성 힌트 표시 */}
